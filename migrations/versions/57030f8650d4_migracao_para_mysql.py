@@ -1,8 +1,8 @@
-"""Criando tabelas iniciais
+"""Migracao para MySQL
 
-Revision ID: 121fc56573f7
+Revision ID: 57030f8650d4
 Revises: 
-Create Date: 2026-03-31 09:38:44.975128
+Create Date: 2026-04-07 08:51:29.472899
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '121fc56573f7'
+revision = '57030f8650d4'
 down_revision = None
 branch_labels = None
 depends_on = None

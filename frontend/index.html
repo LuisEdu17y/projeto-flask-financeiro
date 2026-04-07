@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Finanças Premium</h1>
+            <p>O seu controle financeiro inteligente.</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="card form-card">
+                <h3>Novo Lançamento</h3>
+                <form id="form-lancamento">
+                    <div class="input-group">
+                        <label>Descrição</label>
+                        <input type="text" id="descricao" placeholder="Ex: Conta de Luz" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Valor (R$)</label>
+                        <input type="number" id="valor" step="0.01" placeholder="0.00" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Tipo</label>
+                        <select id="tipo" required>
+                            <option value="">Selecione...</option>
+                            <option value="entrada">🟢 Entrada</option>
+                            <option value="saida">🔴 Saída</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Conta</label>
+                        <select id="conta_id" required>
+                            <option value="">Carregando contas...</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Categoria</label>
+                        <select id="categoria_id" required>
+                            <option value="">Carregando categorias...</option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" id="usuario_id" value="1">
+
+                    <button type="submit" class="btn-primary">Registrar Lançamento</button>
+                </form>
+                <p id="mensagem-erro" class="erro-msg"></p>
+            </div>
+
+            <div class="card table-card">
+                <h3>Histórico de Lançamentos</h3>
+                <div class="table-responsive">
+                    <table id="tabela-lancamentos">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Valor</th>
+                                <th>Tipo</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

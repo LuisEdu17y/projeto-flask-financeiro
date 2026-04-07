@@ -1,42 +1,53 @@
-# 🏦 API RESTful - Sistema de Gestão Financeira Pessoal
+# 🏦 Finanças Premium - Sistema de Gestão Full-Stack
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/Flask-3.0-black?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
-  <img src="https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+  <img src="https://img.shields.io/badge/UI--UX-Premium-4F46E5?style=for-the-badge" alt="UI-UX">
   <img src="https://img.shields.io/badge/Status-Conclu%C3%ADdo-success?style=for-the-badge" alt="Status">
 </div>
 
 <br>
 
-> **Descrição:** Uma API Backend robusta desenvolvida para o registro e controle de movimentações financeiras. O sistema garante a integridade dos dados através de validações rigorosas e relacionamentos complexos de banco de dados.
+> **Descrição:** Uma solução Full-Stack completa que evoluiu de uma ferramenta simples para um ecossistema financeiro automatizado. O sistema agora conta com uma interface **Premium**, eliminando a necessidade de lidar com IDs manuais e focando totalmente na experiência do usuário.
 
 ---
 
 ## 📑 Índice
 - [Arquitetura e Tecnologias](#-arquitetura-e-tecnologias)
+- [✨ O Grande Upgrade de Hoje](#-o-grande-upgrade-de-hoje)
 - [Diagrama de Entidade-Relacionamento (DER)](#-diagrama-do-banco-de-dados)
-- [Regras de Negócio e Segurança](#-regras-de-negócio-e-segurança)
 - [Guia de Instalação e Execução](#-guia-de-instalação-e-execução)
-- [Documentação da API (Endpoints)](#-documentação-da-api-endpoints)
+- [Regras de Negócio e Segurança](#-regras-de-negócio-e-segurança)
 
 ---
 
 ## 🛠 Arquitetura e Tecnologias
 
-O projeto adota o padrão de desenvolvimento de APIs modernas, focando em separação de responsabilidades e segurança:
+O projeto adota o padrão de desenvolvimento de aplicações modernas, focando em separação de responsabilidades:
 
-* **Framework Web:** `Flask` (Microframework de alta performance)
-* **ORM (Mapeamento Objeto-Relacional):** `SQLAlchemy`
-* **Controle de Versão do Banco:** `Flask-Migrate` (Baseado em Alembic)
-* **Banco de Dados:** `SQLite` (Padrão ACID)
-* **Segurança de Variáveis:** `python-dotenv`
+* **Backend:** `Flask` (Microframework) integrado com `SQLAlchemy` para gestão de dados.
+* **Frontend:** Interface moderna com `JavaScript (Fetch API)` e `CSS Grid/Flexbox` para responsividade.
+* **Banco de Dados:** Transição concluída para `MySQL`, garantindo robustez e escalabilidade.
+* **Controle de Versão do Banco:** `Flask-Migrate` para versionamento de esquemas.
+* **Segurança:** Proteção de chaves com `python-dotenv` e controle de acesso via `Flask-CORS`.
+
+---
+
+## ✨ O Grande Upgrade de Hoje
+
+Nesta versão, focamos em **Automação e Estética**:
+
+* **Automação de IDs:** O usuário não precisa mais saber ou digitar o ID de uma categoria ou conta. O sistema carrega os nomes dinamicamente do banco de dados para campos de seleção (dropdowns).
+* **Design Premium:** Implementação de uma interface limpa, com sombras suaves, tipografia "Inter" e badges coloridos para diferenciar receitas (verde) de despesas (vermelho).
+* **Sincronização em Tempo Real:** Ao registrar um lançamento, a tabela é atualizada instantaneamente sem necessidade de recarregar a página.
 
 ---
 
 ## 📊 Diagrama do Banco de Dados
 
-O sistema foi modelado utilizando as melhores práticas de banco de dados relacional (1:N):
+Modelagem relacional (1:N) garantindo a integridade dos dados:
 
 ```mermaid
 erDiagram
