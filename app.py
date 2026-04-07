@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 from datetime import datetime
+from flask_cors import CORS
 
 # ==========================================
 # 1. CONFIGURAÇÕES INICIAIS
@@ -11,6 +12,7 @@ from datetime import datetime
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:///financeiro.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -102,6 +104,21 @@ def criar_categoria():
     db.session.add(nova_categoria)
     db.session.commit()
     return jsonify({"mensagem": "Categoria criada com sucesso!", "id": nova_categoria.id}), 201
+
+
+
+@app.route('/contas', methods=['GET'])
+def listar_contas():
+    contas = Conta.query.all()
+    resultado = [{"id": c.id, "nome": c.nome, "usuario_id": c.usuario_id} for c in contas]
+    return jsonify(resultado), 200
+
+
+@app.route('/categorias', methods=['GET'])
+def listar_categorias():
+    categorias = Categoria.query.all()
+    resultado = [{"id": c.id, "nome": c.nome, "descricao": c.descricao} for c in categorias]
+    return jsonify(resultado), 200
 
 
 # ==========================================
