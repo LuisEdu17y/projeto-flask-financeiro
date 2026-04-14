@@ -1,5 +1,6 @@
 import logging
 from logging.config import fileConfig
+from dotenv import load_dotenv
 
 from flask import current_app
 

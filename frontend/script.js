@@ -25,7 +25,7 @@ async function carregarOpcoesFormulario() {
     }
 }
 
-// 2. Carrega os Lançamentos para a Tabela
+// 2. Carrega os Lançamentos para a Tabela e Calcula o Saldo
 async function carregarLancamentos() {
     try {
         const resposta = await fetch(`${URL_BASE}/lancamentos`);
@@ -34,7 +34,17 @@ async function carregarLancamentos() {
         const tbody = document.querySelector('#tabela-lancamentos tbody');
         tbody.innerHTML = ''; 
 
+        // Variável para armazenar o saldo
+        let saldoTotal = 0;
+
         lancamentos.forEach(lan => {
+            // Lógica do Saldo: Soma se for entrada, subtrai se for saída
+            if (lan.tipo === 'entrada') {
+                saldoTotal += lan.valor;
+            } else if (lan.tipo === 'saida') {
+                saldoTotal -= lan.valor;
+            }
+
             const tr = document.createElement('tr');
             
             // Tratamento visual para o tipo
@@ -50,6 +60,20 @@ async function carregarLancamentos() {
             `;
             tbody.appendChild(tr);
         });
+
+        // Atualiza o valor do saldo no HTML
+        const elementoSaldo = document.getElementById('valor-saldo');
+        if (elementoSaldo) {
+            elementoSaldo.innerText = `R$ ${saldoTotal.toFixed(2)}`;
+            
+            // Muda a cor dependendo se o saldo é positivo ou negativo
+            if (saldoTotal < 0) {
+                elementoSaldo.style.color = '#e74c3c'; // Vermelho para negativo
+            } else {
+                elementoSaldo.style.color = '#4CAF50'; // Verde para positivo
+            }
+        }
+
     } catch (erro) {
         console.error("Erro ao carregar lançamentos:", erro);
     }
@@ -80,7 +104,7 @@ document.getElementById('form-lancamento').addEventListener('submit', async func
         if (resposta.ok) {
             document.getElementById('mensagem-erro').innerText = "";
             document.getElementById('form-lancamento').reset();
-            carregarLancamentos(); 
+            carregarLancamentos(); // Como isto chama a função, o saldo atualiza na hora!
         } else {
             document.getElementById('mensagem-erro').innerText = "Erro: " + (resultado.erro || "Falha ao salvar");
         }
@@ -93,7 +117,7 @@ document.getElementById('form-lancamento').addEventListener('submit', async func
 async function apagarLancamento(id) {
     if (confirm("Deseja realmente excluir este registro?")) {
         await fetch(`${URL_BASE}/lancamentos/${id}`, { method: 'DELETE' });
-        carregarLancamentos();
+        carregarLancamentos(); // Aqui também atualiza o saldo na hora!
     }
 }
 
