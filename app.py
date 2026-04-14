@@ -176,7 +176,7 @@ def listar_lancamentos():
         })
     return jsonify(resultado), 200
 
-# UPDATE - Atualizar um lançamento existente
+# UPDATE - Atualizar um lançamento existente com validação de regras
 @app.route('/lancamentos/<int:id>', methods=['PUT'])
 def atualizar_lancamento(id):
     lancamento = Lancamento.query.get(id)
@@ -185,19 +185,28 @@ def atualizar_lancamento(id):
     
     dados = request.get_json()
     
+    # Regra de Negócio: Descrição
     if 'descricao' in dados:
         lancamento.descricao = dados.get('descricao')
         
+    # Regra de Negócio: Valor deve ser positivo 
     if 'valor' in dados:
         novo_valor = float(dados.get('valor'))
         if novo_valor <= 0:
             return jsonify({"erro": "Regra violada: O valor deve ser maior que zero."}), 400
         lancamento.valor = novo_valor
 
+    # Regra de Negócio: Tipo deve ser entrada ou saída 
     if 'tipo' in dados:
-        if dados.get('tipo') not in ['entrada', 'saida']:
+        tipo = dados.get('tipo')
+        if tipo not in ['entrada', 'saida']:
             return jsonify({"erro": "Regra violada: O tipo deve ser exclusivamente 'entrada' ou 'saida'."}), 400
-        lancamento.tipo = dados.get('tipo')
+        lancamento.tipo = tipo
+
+    if 'categoria_id' in dados:
+        lancamento.categoria_id = dados.get('categoria_id')
+    if 'conta_id' in dados:
+        lancamento.conta_id = dados.get('conta_id')
 
     db.session.commit()
     return jsonify({"mensagem": "Lançamento atualizado com sucesso!"}), 200
